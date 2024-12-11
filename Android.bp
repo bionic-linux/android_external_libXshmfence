@@ -1,0 +1,26 @@
+cc_library {
+    name: "libXshmfence",
+    cflags: [
+        "-DSHMDIR=\"/data/local/tmp\"",
+        "-DHAVE_MEMFD_H",
+        "-DHAVE_PTHREAD",
+    ],
+    srcs: [
+        "src/xshmfence_alloc.c",
+        "src/xshmfence_pthread.c",
+    ],
+    header_libs: ["xorgproto"],
+    export_header_lib_headers: ["xorgproto"],
+    export_include_dirs: ["src"],
+}
+
+cc_binary {
+    name: "xshmfence_test",
+    cflags: [
+        "-Wno-unused-parameter",
+    ],
+    srcs: [
+        "test/xshmfence_test.c",
+    ],
+    shared_libs: ["libXshmfence"],
+}
